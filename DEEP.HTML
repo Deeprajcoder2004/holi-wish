@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holi Special 2024</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Pacifico', cursive;
+            background: #000;
+        }
+
+        /* Welcome Screen */
+        #welcome-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00);
+            background-size: 400% 400%;
+            animation: holiGradient 8s ease infinite;
+            z-index: 1000;
+            transition: opacity 1s;
+        }
+
+        .welcome-text {
+            font-size: 4em;
+            color: white;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+            animation: zoomInOut 2s infinite;
+        }
+
+        /* Greeting Page */
+        #greeting-page {
+            display: none;
+            position: relative;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .user-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 0 30px rgba(233,30,99,0.8);
+            margin: 30px auto;
+            animation: photoFloat 3s ease-in-out infinite;
+        }
+
+        .greeting-text {
+            font-size: 2.5em;
+            color: #fff;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #e91e63;
+        }
+
+        /* Video Page */
+        #video-page {
+            display: none;
+            position: relative;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .holi-video {
+            width: 80%;
+            height: 70vh;
+            border: 5px solid #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(233,30,99,0.8);
+            z-index: 200;
+        }
+
+        /* Peacock Feathers */
+        .peacock-feather {
+            position: absolute;
+            width: 100px;
+            opacity: 0.7;
+            animation: float 15s linear infinite;
+            filter: drop-shadow(0 0 10px cyan);
+        }
+
+        /* Animations */
+        @keyframes holiGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes zoomInOut {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        .click-me {
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.5em;
+            animation: pulse 1.5s infinite;
+            text-shadow: 0 0 10px #e91e63;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen">
+        <h1 class="welcome-text">Happy Holi! 🦚</h1>
+    </div>
+
+    <!-- Greeting Page -->
+    <div id="greeting-page">
+        <img src="download.jpeg" alt="Friend's Photo" class="user-photo">
+        <h1 class="greeting-text">Dear Best Friend,<br>May Your Life Be Filled<br>With Colors of Joy!</h1>
+        <div class="click-me" onclick="showVideoPage()">🎨 Click for Holi Magic! 🎇</div>
+    </div>
+
+    <!-- Video Page -->
+    <div id="video-page">
+        <video class="holi-video" autoplay muted loop controls>
+            <source src="holi.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Audio -->
+    <audio id="fluteMusic" loop>
+        <source src="flute-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Initial Load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('greeting-page').style.display = 'block';
+                createFeathers();
+                startMusic();
+            }, 4000);
+        });
+
+        function createFeathers() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
+            for(let i = 0; i < 12; i++) {
+                const feather = document.createElement('img');
+                feather.className = 'peacock-feather';
+                feather.src = 'peacock-feather.svg';
+                feather.style.left = Math.random() * 100 + 'vw';
+                feather.style.animationDelay = Math.random() * 5 + 's';
+                feather.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(feather);
+            }
+        }
+
+        function startMusic() {
+            const flute = document.getElementById('fluteMusic');
+            document.body.addEventListener('click', () => {
+                flute.play().catch(() => {});
+            }, { once: true });
+        }
+
+        function showVideoPage() {
+            document.getElementById('greeting-page').style.display = 'none';
+            document.getElementById('video-page').style.display = 'flex';
+            document.querySelector('.holi-video').play();
+            intensifyEffects();
+        }
+
+        function intensifyEffects() {
+            setInterval(() => {
+                const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.style.backgroundColor = color;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
